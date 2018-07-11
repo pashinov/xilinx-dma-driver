@@ -1,43 +1,40 @@
-/*  dma-drv.c - The simplest kernel module.
- */
+#include <linux/fs.h>
+#include <linux/err.h>
+#include <linux/time.h>
+#include <linux/init.h>
+#include <linux/delay.h>
+#include <linux/module.h>
+#include <linux/string.h>
+#include <linux/kdev_t.h>
+#include <linux/version.h>
+#include <linux/proc_fs.h>
+#include <linux/moduleparam.h>
 
- #include <linux/fs.h>
- #include <linux/err.h>
- #include <linux/time.h>
- #include <linux/init.h>
- #include <linux/delay.h>
- #include <linux/module.h>
- #include <linux/string.h>
- #include <linux/kdev_t.h>
- #include <linux/version.h>
- #include <linux/proc_fs.h>
- #include <linux/moduleparam.h>
+#include <asm/io.h>
+#include <linux/io.h>
+#include <linux/of.h>
+#include <linux/irq.h>
+#include <linux/cdev.h>
+#include <linux/ioctl.h>
+#include <linux/of_irq.h>
+#include <linux/uaccess.h>
+#include <linux/of_platform.h>
+#include <linux/of_address.h>
+#include <linux/device.h>
+#include <linux/of_device.h>
+#include <linux/dma-mapping.h>
 
- #include <asm/io.h>
- #include <linux/io.h>
- #include <linux/of.h>
- #include <linux/irq.h>
- #include <linux/cdev.h>
- #include <linux/ioctl.h>
- #include <linux/of_irq.h>
- #include <linux/uaccess.h>
- #include <linux/of_platform.h>
- #include <linux/of_address.h>
- #include <linux/device.h>
- #include <linux/of_device.h>
- #include <linux/dma-mapping.h>
-
- #include <linux/sched.h>
- #include <linux/kernel.h> 		//printk()
- #include <linux/slab.h>		//kmalloc()
- #include <linux/errno.h>		//error codes
- #include <linux/types.h>  		//size_t
- #include <linux/interrupt.h> 	//mark_bh
- #include <linux/kthread.h>
- #include <linux/jiffies.h>
- #include <linux/seq_file.h>
- #include <linux/semaphore.h>
- #include <linux/spinlock.h>
+#include <linux/sched.h>
+#include <linux/kernel.h> 		//printk()
+#include <linux/slab.h>		//kmalloc()
+#include <linux/errno.h>		//error codes
+#include <linux/types.h>  		//size_t
+#include <linux/interrupt.h> 	//mark_bh
+#include <linux/kthread.h>
+#include <linux/jiffies.h>
+#include <linux/seq_file.h>
+#include <linux/semaphore.h>
+#include <linux/spinlock.h>
 
 #define DRIVER_NAME "xlnx-dma-driver"
 #define PROCFS_NAME "xlnx-dma-driver-procfs"
